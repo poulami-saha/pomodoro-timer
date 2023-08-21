@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Monda&display=swap");
+.container {
+  background: #ffffffb2;
+  font-family: "Monda", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  height: 3rem;
+  margin-inline: 2rem;
+  padding-inline: 2rem;
+}
+.image {
+  height: 30px;
+  width: 30px;
+  margin-right: 5px;
+  margin-top: 5px;
+}
+  @media only screen and (max-width: 600px) {
+  .container {
+    font-size: 18px;
+    margin-inline: 0.75rem;
+  }
+}  

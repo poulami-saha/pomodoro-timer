@@ -1,0 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+.clock {
+  border-radius: 50%;
+  border: 20px solid #ff9dae;
+  width: 20rem;
+  text-align: center;
+  height: 20rem;
+}
+.label {
+  font-family: "Lobster";
+  font-size: 45px;
+  font-weight: 400;
+  line-height: 0;
+}
+.image {
+  margin: 2rem;
+}
+@media only screen and (max-width: 600px) {
+  .clock {
+    width: 17rem;
+    height: 17rem;
+  }
+  .label {
+    font-size: 32px;
+  }
+  .image {
+    margin: 1rem;
+  }
+}

@@ -1,0 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Monda&display=swap");
+
+body {
+  background: #ff9dae33;
+}
+section {
+  display: flex;
+  justify-content: space-around;
+  background: #ff9dae33;
+  padding-bottom: 2rem;
+}
+.button {
+  display: flex;
+  justify-content: center;
+}
+footer {
+  font-family: "Monda";
+  font-size: 10px;
+  font-weight: 400;
+  text-align: right;
+  color: #db6260;
+}

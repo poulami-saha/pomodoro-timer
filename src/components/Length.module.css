@@ -1,0 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=Monda&display=swap");@import url("https://fonts.googleapis.com/css2?family=Lobster&family=Monda&display=swap");
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 1rem;
+}
+.label {
+  font-family: "Monda";
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 0;
+}
+.image {
+  height: 40px;
+  width: 40px;
+  margin-inline: 1rem;
+}
+.length {
+  font-family: "Lobster", cursive;
+  font-size: 30px;
+  color: #db6260;
+  text-align: center;
+  line-height: 0;
+}
+@media only screen and (max-width: 600px) {
+  .image {
+    height: 30px;
+    width: 30px;
+  }
+  .label {
+    font-size: 18px;
+    text-align: center;
+  }
+  .length {
+    width: 25px;
+    height: 0px;
+    border-radius: 0;
+    background: none;
+  }
+}
