@@ -6,44 +6,83 @@ import restart from "./assets/restart.png";
 import Length from "./components/Length";
 import Header from "./components/Header";
 import Clock from "./components/Clock";
-const defaultSession = 15;
+
+const defaultSessionLength = 15;
+const defaultBreakLength = 5;
 
 function App() {
-  const [session, setSession] = useState(defaultSession);
-  const [breakLength, setBreakLength] = useState(5);
+  const [sessionLength, setSessionLength] = useState(defaultSessionLength);
+  const [breakLength, setBreakLength] = useState(defaultBreakLength);
+  const [isOnBreak, setIsOnBreak] = useState(false);
 
-  const [currentTimerMinute, setCurrentTimerMinute] = useState(defaultSession);
+  const [currentTimerMinute, setCurrentTimerMinute] =
+    useState(defaultSessionLength);
+
   const [currentTimerSecond, setCurrentTimerSecond] = useState(0);
   const [isActive, setIsActive] = useState(false);
+  const [percent, setPercent] = useState(0);
 
   let interval = null;
 
   const resetButtonHandler = () => {
     clearInterval(interval);
-    setCurrentTimerMinute(session);
+    setCurrentTimerMinute(sessionLength);
     setCurrentTimerSecond(0);
+    setPercent(0);
   };
 
   const startButtonHandler = () => {
     setIsActive(!isActive);
   };
 
-  const sessionValueHandler = (val) => {
+  const switchHandler = () => {
+    let breakTime = isOnBreak;
     if (interval) {
       clearInterval(interval);
     }
-    console.log(val);
-    setSession(val);
-    setCurrentTimerMinute(val);
+    setIsOnBreak(!isOnBreak);
+    breakTime = !breakTime;
+
+    if (breakTime) {
+      console.log(breakTime);
+      console.log("hit");
+      setCurrentTimerMinute(breakLength);
+      setIsActive(true);
+    } else {
+      setCurrentTimerMinute(sessionLength);
+      setPercent(0);
+      setIsActive(false);
+    }
     setCurrentTimerSecond(0);
   };
-  const breakValueHandler = (val) => {
-    setBreakLength(val);
+
+  const lengthValueHandler = (type, lengthValue) => {
+    if (interval) {
+      clearInterval(interval);
+    }
+
+    setCurrentTimerSecond(0);
+
+    if (type === "break") {
+      setBreakLength(lengthValue);
+      if (isOnBreak) {
+        setCurrentTimerMinute(lengthValue);
+      }
+    }
+    if (type === "session") {
+      setSessionLength(lengthValue);
+      if (!isOnBreak) {
+        setCurrentTimerMinute(lengthValue);
+      }
+    }
   };
+
   const minutes =
     currentTimerMinute < 10 ? `0${currentTimerMinute}` : currentTimerMinute;
   const seconds =
     currentTimerSecond < 10 ? `0${currentTimerSecond}` : currentTimerSecond;
+
+  const totalTime = isOnBreak ? breakLength * 60 : sessionLength * 60;
 
   useEffect(() => {
     if (isActive) {
@@ -58,10 +97,14 @@ function App() {
         } else {
           setCurrentTimerSecond(currentTimerSecond - 1);
         }
+        setPercent(
+          ((currentTimerMinute * 60 + currentTimerSecond) / totalTime) * 100
+        );
       }, 1000);
     }
     return () => clearInterval(interval);
   }, [currentTimerMinute, currentTimerSecond, isActive]);
+
   return (
     <React.Fragment>
       <Header />
@@ -69,32 +112,45 @@ function App() {
         <Length
           label="Break Length"
           value={breakLength}
-          minValue="5"
-          maxValue="30"
-          onLengthHandler={breakValueHandler}
+          minValue="1"
+          type="break"
+          onLengthHandler={(type, lengthValue) =>
+            lengthValueHandler(type, lengthValue)
+          }
         />
 
         <Length
           label="Session Length"
-          value={session}
-          minValue="15"
-          maxValue="60"
-          onLengthHandler={sessionValueHandler}
+          value={sessionLength}
+          minValue="1"
+          type="session"
+          onLengthHandler={(type, lengthValue) =>
+            lengthValueHandler(type, lengthValue)
+          }
         />
       </section>
       <section>
-        <Clock timer={`${minutes}:${seconds}`} />
+        <Clock timer={`${minutes}:${seconds}`} percentage={percent} />
       </section>
       <section className="button">
+        {!isOnBreak && (
+          <Button
+            label={!isActive ? "START" : "PAUSE"}
+            image={pauseImg}
+            onClickHandler={startButtonHandler}
+          />
+        )}
+        {!isOnBreak && isActive && (
+          <Button
+            label="RESET"
+            image={restart}
+            onClickHandler={resetButtonHandler}
+          />
+        )}
         <Button
-          label={!isActive ? "START" : "PAUSE"}
-          image={pauseImg}
-          onClickHandler={startButtonHandler}
-        />
-        <Button
-          label="RESET"
+          label={isOnBreak ? "POMODORO" : "BREAK"}
           image={restart}
-          onClickHandler={resetButtonHandler}
+          onClickHandler={switchHandler}
         />
       </section>
       <footer>

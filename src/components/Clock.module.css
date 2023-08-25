@@ -1,10 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 .clock {
   border-radius: 50%;
-  border: 20px solid #ff9dae;
-  width: 20rem;
+  width: 25rem;
   text-align: center;
-  height: 20rem;
+  height: 25rem;
 }
 .label {
   font-family: "Lobster";

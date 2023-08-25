@@ -5,16 +5,15 @@ import remove from "../assets/remove.png";
 const Length = (props) => {
   const [value, setValue] = useState(props.value);
   const minValue = +props.minValue;
-  const maxValue = +props.maxValue;
 
   const addButtonHandler = () => {
-    setValue((prevValue) => (prevValue !== maxValue ? ++prevValue : prevValue));
-    props.onLengthHandler(value + 1);
+    setValue((prevValue) => prevValue + 1);
+    props.onLengthHandler(props.type, value + 1);
   };
 
   const subtractButtonHandler = () => {
     setValue((prevValue) => (prevValue !== minValue ? --prevValue : prevValue));
-    props.onLengthHandler(value - 1);
+    props.onLengthHandler(props.type, value - 1);
   };
 
   return (
