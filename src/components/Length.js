@@ -24,9 +24,10 @@ const Length = (props) => {
           src={remove}
           className={classes.image}
           onClick={subtractButtonHandler}
+          alt="decrease"
         />
         <p className={classes.length}>{value}</p>
-        <img src={add} className={classes.image} onClick={addButtonHandler} />
+        <img src={add} className={classes.image} onClick={addButtonHandler}  alt="increase"/>
       </div>
     </div>
   );

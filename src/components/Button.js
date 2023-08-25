@@ -5,7 +5,7 @@ import classes from "./Button.module.css";
 const Button = (props) => {
   return (
     <div className={classes.container} onClick={props.onClickHandler}>
-      <img src={props.image} className={classes.image}/>
+      <img src={props.image} className={classes.image} alt={props.label}/>
       <span>{props.label}</span>
     </div>
   );

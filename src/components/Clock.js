@@ -19,7 +19,7 @@ const Clock = (props) => {
         backgroundColor: "rgba(255, 157, 174, 1)",
       })}
     >
-      <img src={tomato} className={classes.image} />
+      <img src={tomato} className={classes.image} alt="tomato" />
       <p className={classes.label}>{props.timer}</p>
     </CircularProgressbarWithChildren>
   );
