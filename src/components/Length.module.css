@@ -30,11 +30,11 @@
     width: 30px;
   }
   .label {
-    font-size: 18px;
+    font-size: 15px;
     text-align: center;
   }
   .length {
-    width: 25px;
+    width: 20px;
     height: 0px;
     border-radius: 0;
     background: none;

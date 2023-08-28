@@ -17,13 +17,13 @@
   margin-inline: 3rem;
   line-height: 0;
 }
-@media only screen and (max-width: 600px) {
+@media only screen and (min-width: 340px) {
   .bar {
     width: 5rem;
     height: 0.25rem;
   }
   .header {
-    font-size: 25px;
+    font-size: 20px;
     margin-inline: 1rem;
   }
 }

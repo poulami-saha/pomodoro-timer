@@ -12,6 +12,7 @@ section {
 .button {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 }
 footer {
   font-family: "Monda";

@@ -13,13 +13,14 @@ const defaultBreakLength = 5;
 function App() {
   const [sessionLength, setSessionLength] = useState(defaultSessionLength);
   const [breakLength, setBreakLength] = useState(defaultBreakLength);
-  const [isOnBreak, setIsOnBreak] = useState(false);
 
   const [currentTimerMinute, setCurrentTimerMinute] =
     useState(defaultSessionLength);
-
   const [currentTimerSecond, setCurrentTimerSecond] = useState(0);
+
+  const [isOnBreak, setIsOnBreak] = useState(false);
   const [isActive, setIsActive] = useState(false);
+
   const [percent, setPercent] = useState(0);
 
   let interval = null;
@@ -36,24 +37,23 @@ function App() {
   };
 
   const switchHandler = () => {
-    let breakTime = isOnBreak;
+    let isOnBreakTime = isOnBreak;
     if (interval) {
       clearInterval(interval);
     }
-    setIsOnBreak(!isOnBreak);
-    breakTime = !breakTime;
 
-    if (breakTime) {
-      console.log(breakTime);
-      console.log("hit");
+    setIsOnBreak(!isOnBreak);
+    isOnBreakTime = !isOnBreakTime;
+
+    if (isOnBreakTime) {
       setCurrentTimerMinute(breakLength);
       setIsActive(true);
     } else {
       setCurrentTimerMinute(sessionLength);
-      setPercent(0);
       setIsActive(false);
     }
     setCurrentTimerSecond(0);
+    setPercent(0);
   };
 
   const lengthValueHandler = (type, lengthValue) => {
@@ -87,6 +87,11 @@ function App() {
   useEffect(() => {
     if (isActive) {
       interval = setInterval(() => {
+        if (currentTimerMinute === 0 && currentTimerSecond === 0) {
+          setCurrentTimerMinute(isOnBreak ? breakLength : sessionLength);
+          setIsActive(false);
+          return () => clearInterval(interval);
+        }
         if (currentTimerSecond === 0) {
           if (currentTimerMinute !== 0) {
             setCurrentTimerSecond(59);
